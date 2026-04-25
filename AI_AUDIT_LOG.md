@@ -55,3 +55,20 @@ Notes:
 - Added free Google News RSS search plus OpenAI `gpt-4o` thread generation.
 - Installed Python 3.12 locally, created `.venv`, and installed dependencies.
 - Verified the CLI usage flow and the missing-API-key error path.
+
+### Entry 002
+
+Date: 2026-04-24
+Tool: Codex
+Task: Polish the repository using operating-system patterns from the Obsidian vault.
+Files:
+- README.md
+- AGENTS.md
+- .env.example
+- docs/architecture.md
+- docs/portfolio-positioning.md
+- AI_AUDIT_LOG.md
+Notes:
+- Used the vault's emphasis on contracts, conventions, and source-versus-synthesis boundaries.
+- Added a repo-level operating contract and stronger architecture and positioning docs.
+- Kept the changes portfolio-facing rather than copying private vault content into the repo.
