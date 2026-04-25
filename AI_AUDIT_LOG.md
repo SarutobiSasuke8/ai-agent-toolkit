@@ -94,3 +94,21 @@ Notes:
 - Made `ollama` the default path so the project can run without API credits.
 - Added setup and run instructions for local Ollama usage.
 - Verified a full local Ollama run using the installed `gemma4:latest` model.
+
+### Entry 004
+
+Date: 2026-04-25
+Tool: Codex
+Task: Add real sample outputs to improve the portfolio story.
+Files:
+- examples/run_agent.py
+- examples/sample_outputs/ai-agents-in-web3.md
+- examples/sample_outputs/crypto-ai-infrastructure.md
+- examples/sample_outputs/depin-and-ai.md
+- docs/sample-outputs.md
+- README.md
+- AI_AUDIT_LOG.md
+Notes:
+- Generated real sample outputs with the free local `ollama` path using `llama3.2:1b`.
+- Fixed a Windows console encoding issue in the example runner while producing samples.
+- Added a sample-output index page and linked it from the README.

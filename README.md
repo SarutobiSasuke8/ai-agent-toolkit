@@ -59,6 +59,7 @@ The high-level flow is:
 5. clean and preview the final output
 
 More detail lives in [docs/architecture.md](docs/architecture.md).
+Real example runs live in [docs/sample-outputs.md](docs/sample-outputs.md).
 
 ## Local Setup
 
@@ -146,6 +147,17 @@ python examples/run_agent.py "AI agents in Web3" --provider ollama --model llama
 - `ollama` is the default so you can run the project without API credits
 - This is the local MVP for Phase 1
 - The repo keeps raw source gathering separate from LLM synthesis
+
+## Sample Outputs
+
+The repo now includes real generated examples:
+
+- [AI Agents in Web3](examples/sample_outputs/ai-agents-in-web3.md)
+- [Crypto AI Infrastructure](examples/sample_outputs/crypto-ai-infrastructure.md)
+- [DePIN and AI](examples/sample_outputs/depin-and-ai.md)
+
+These were generated with the free local Ollama path, so they show the project
+working end to end without API credits.
 
 ## Roadmap
 
