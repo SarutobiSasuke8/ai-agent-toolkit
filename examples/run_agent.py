@@ -6,6 +6,7 @@ python examples/run_agent.py "AI agents in Web3"
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 import sys
 
@@ -18,18 +19,43 @@ from agents.news_to_thread_agent import NewsToThreadAgent
 from tools.formatter import format_thread_preview
 
 
-def main() -> None:
-    if len(sys.argv) < 2:
-        print('Usage: python examples/run_agent.py "AI agents in Web3"')
-        raise SystemExit(1)
+def default_model_for_provider(provider: str) -> str:
+    """Return a sensible default model for each provider."""
+    defaults = {
+        "openai": "gpt-4o",
+        "ollama": "llama3.2:1b",
+    }
+    return defaults[provider]
 
-    topic = " ".join(sys.argv[1:]).strip()
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Search recent news and turn it into a punchy X thread."
+    )
+    parser.add_argument("topic", help='Topic to research, for example "AI agents in Web3"')
+    parser.add_argument(
+        "--provider",
+        default="ollama",
+        choices=["openai", "ollama"],
+        help="Model backend to use. Defaults to ollama so the project can run without API credits.",
+    )
+    parser.add_argument(
+        "--model",
+        default=None,
+        help="Optional model override. Example: gpt-4o or llama3.2:3b",
+    )
+    args = parser.parse_args()
+
+    topic = args.topic.strip()
+    model = args.model or default_model_for_provider(args.provider)
 
     print(f"Running agent for topic: {topic}")
+    print(f"Provider: {args.provider}")
+    print(f"Model: {model}")
     print("-" * 60)
 
     try:
-        agent = NewsToThreadAgent(model="gpt-4o")
+        agent = NewsToThreadAgent(provider=args.provider, model=model)
         result = agent.run(topic=topic)
     except Exception as exc:  # noqa: BLE001 - beginner-friendly CLI output
         print(f"Agent failed: {exc}")

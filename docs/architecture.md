@@ -19,9 +19,9 @@ Google News RSS search
   ->
 Structured search results
   ->
-OpenAI prompt assembly
+Prompt assembly
   ->
-gpt-4o thread generation
+OpenAI or Ollama thread generation
   ->
 Thread cleanup and preview output
 ```
@@ -38,6 +38,7 @@ for a first portfolio-grade MVP.
 - `tools/search.py` handles source retrieval
 - `prompts/system_prompts.md` defines writing behaviour
 - `agents/news_to_thread_agent.py` orchestrates the workflow
+- `tools/llm.py` switches between model providers
 - `tools/formatter.py` cleans the final output
 
 ### Source and synthesis boundary
@@ -52,6 +53,7 @@ The code keeps those responsibilities separate so the workflow stays legible.
 - The agent does not fetch full article bodies yet
 - The tool does not fact-check claims beyond the returned source snippets
 - The agent does not post directly to X
+- Local Ollama quality will usually be weaker than `gpt-4o`
 
 ## Next Up
 

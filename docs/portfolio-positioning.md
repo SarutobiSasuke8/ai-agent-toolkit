@@ -17,7 +17,7 @@ For a recruiter, client, or collaborator, this repo shows:
 
 - basic agent orchestration
 - prompt design with a defined voice
-- API integration
+- API integration and local-model support
 - clean project structure
 - auditability of AI-assisted development
 

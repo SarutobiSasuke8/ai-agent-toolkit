@@ -1,7 +1,8 @@
 # ai-agent-toolkit
 
 A beginner-friendly Python project that searches recent Web3 and AI news,
-summarizes the signal with OpenAI, and turns it into a punchy X thread.
+summarizes the signal with either OpenAI or Ollama, and turns it into a punchy
+X thread.
 
 This repo is intentionally small, inspectable, and portfolio-friendly.
 The goal is to show a real agent workflow, not hide everything inside one prompt.
@@ -21,7 +22,7 @@ This project goes one step further:
 
 1. You give the agent a topic such as `AI agents in Web3`
 2. It searches recent news using a free Google News RSS search
-3. It sends those results to OpenAI `gpt-4o`
+3. It sends those results to either OpenAI or a local Ollama model
 4. It returns a short thread in a Web3 and AI native tone
 
 ## Project Structure
@@ -54,7 +55,7 @@ The high-level flow is:
 1. accept a topic
 2. search recent news with Google News RSS
 3. package the results into a prompt
-4. ask `gpt-4o` to write the thread
+4. ask the configured model to write the thread
 5. clean and preview the final output
 
 More detail lives in [docs/architecture.md](docs/architecture.md).
@@ -76,7 +77,33 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 3. Add your OpenAI API key
+### 3. Choose a model backend
+
+You now have two paths:
+
+#### Option A: Free local mode with Ollama
+
+If Ollama is installed, start it and pull a small model:
+
+```powershell
+ollama serve
+```
+
+In a second PowerShell window:
+
+```powershell
+ollama pull llama3.2:1b
+```
+
+Then run the agent:
+
+```powershell
+python examples/run_agent.py "AI agents in Web3"
+```
+
+`ollama` is the default provider now, so you do not need an API key for this mode.
+
+#### Option B: OpenAI mode with `gpt-4o`
 
 ```powershell
 setx OPENAI_API_KEY "your_api_key_here"
@@ -93,6 +120,18 @@ commit secrets.
 python examples/run_agent.py "AI agents in Web3"
 ```
 
+For OpenAI mode:
+
+```powershell
+python examples/run_agent.py "AI agents in Web3" --provider openai --model gpt-4o
+```
+
+For a specific Ollama model:
+
+```powershell
+python examples/run_agent.py "AI agents in Web3" --provider ollama --model llama3.2:1b
+```
+
 ## Example Topics
 
 - `AI agents in Web3`
@@ -103,7 +142,8 @@ python examples/run_agent.py "AI agents in Web3"
 ## Notes
 
 - Search is free and uses Google News RSS, not a paid search API
-- The OpenAI call uses `gpt-4o`
+- The project supports both `openai` and local `ollama` providers
+- `ollama` is the default so you can run the project without API credits
 - This is the local MVP for Phase 1
 - The repo keeps raw source gathering separate from LLM synthesis
 

@@ -18,6 +18,8 @@ Style rules:
 Output rules:
 - write 5 to 7 posts
 - keep each post concise
+- label each post as `1/`, `2/`, `3/` and so on
+- put a blank line between posts
 - avoid hashtags unless they add real value
 - do not invent facts
 - use the source material provided
