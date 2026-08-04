@@ -26,12 +26,22 @@ class AgentRunResult:
 class NewsToThreadAgent:
     """Small AI agent that turns fresh news into an X thread."""
 
-    def __init__(self, provider: str = "openai", model: str = "gpt-4o") -> None:
+    def __init__(
+        self,
+        provider: str = "openai",
+        model: str = "gpt-4o",
+        base_url: str | None = None,
+    ) -> None:
         self.provider = provider
         self.model = model
+        self.base_url = base_url
         self.system_prompt = PROMPTS_FILE.read_text(encoding="utf-8")
         self.writer = ThreadWriter(
-            config=LLMConfig(provider=self.provider, model=self.model),
+            config=LLMConfig(
+                provider=self.provider,
+                model=self.model,
+                base_url=self.base_url,
+            ),
             system_prompt=self.system_prompt,
         )
 

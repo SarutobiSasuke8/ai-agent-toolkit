@@ -27,6 +27,7 @@ def default_model_for_provider(provider: str) -> str:
     defaults = {
         "openai": "gpt-4o",
         "ollama": "llama3.2:1b",
+        "nous": "Hermes-4-70B",
     }
     return defaults[provider]
 
@@ -39,13 +40,21 @@ def main() -> None:
     parser.add_argument(
         "--provider",
         default="ollama",
-        choices=["openai", "ollama"],
+        choices=["openai", "ollama", "nous"],
         help="Model backend to use. Defaults to ollama so the project can run without API credits.",
     )
     parser.add_argument(
         "--model",
         default=None,
-        help="Optional model override. Example: gpt-4o or llama3.2:3b",
+        help="Optional model override. Example: gpt-4o, llama3.2:3b, or Hermes-4-70B",
+    )
+    parser.add_argument(
+        "--base-url",
+        default=None,
+        help=(
+            "Optional base URL for the nous provider. Point this at any other "
+            "OpenAI-compatible host to reuse the same code path."
+        ),
     )
     args = parser.parse_args()
 
@@ -58,7 +67,11 @@ def main() -> None:
     print("-" * 60)
 
     try:
-        agent = NewsToThreadAgent(provider=args.provider, model=model)
+        agent = NewsToThreadAgent(
+            provider=args.provider,
+            model=model,
+            base_url=args.base_url,
+        )
         result = agent.run(topic=topic)
     except Exception as exc:  # noqa: BLE001 - beginner-friendly CLI output
         print(f"Agent failed: {exc}")

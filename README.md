@@ -34,11 +34,14 @@ ai-agent-toolkit/
 ├── README.md
 ├── docs/
 │   ├── architecture.md
-│   └── portfolio-positioning.md
+│   ├── portfolio-positioning.md
+│   ├── roadmap.md
+│   └── sample-outputs.md
 ├── agents/
 │   └── news_to_thread_agent.py
 ├── tools/
 │   ├── search.py
+│   ├── llm.py
 │   └── formatter.py
 ├── prompts/
 │   └── system_prompts.md
@@ -112,6 +115,33 @@ setx OPENAI_API_KEY "your_api_key_here"
 
 After running `setx`, open a new PowerShell window before testing the app.
 
+#### Option C: Hermes mode with Nous Research
+
+Nous Research serves their Hermes models over an OpenAI-compatible API, so this
+uses the same client with a different base URL.
+
+```powershell
+setx NOUS_API_KEY "your_nous_api_key_here"
+```
+
+Then run:
+
+```powershell
+python examples/run_agent.py "AI agents in Web3" --provider nous --model Hermes-4-70B
+```
+
+The base URL defaults to `https://inference-api.nousresearch.com/v1`. Because
+this path is plain OpenAI-compatible chat completions, `--base-url` points the
+same code at any other compatible host.
+
+Note on model IDs: `Hermes-4-70B` is the default here, but the exact ID strings
+were not confirmed against a live Nous account when this was written. Check what
+your key can actually reach before assuming the default is right:
+
+```powershell
+curl -H "Authorization: Bearer $NOUS_API_KEY" https://inference-api.nousresearch.com/v1/models
+```
+
 You can also copy [.env.example](.env.example) as a local reference, but do not
 commit secrets.
 
@@ -133,6 +163,19 @@ For a specific Ollama model:
 python examples/run_agent.py "AI agents in Web3" --provider ollama --model llama3.2:1b
 ```
 
+For Hermes via Nous Research:
+
+```powershell
+python examples/run_agent.py "AI agents in Web3" --provider nous --model Hermes-4-70B
+```
+
+Hermes weights are also open, so a local Hermes build works through the `ollama`
+provider with no extra code:
+
+```powershell
+python examples/run_agent.py "AI agents in Web3" --provider ollama --model hermes3
+```
+
 ## Example Topics
 
 - `AI agents in Web3`
@@ -143,7 +186,7 @@ python examples/run_agent.py "AI agents in Web3" --provider ollama --model llama
 ## Notes
 
 - Search is free and uses Google News RSS, not a paid search API
-- The project supports both `openai` and local `ollama` providers
+- The project supports `openai`, local `ollama`, and `nous` providers
 - `ollama` is the default so you can run the project without API credits
 - This is the local MVP for Phase 1
 - The repo keeps raw source gathering separate from LLM synthesis
@@ -161,11 +204,9 @@ working end to end without API credits.
 
 ## Roadmap
 
-- add support for multiple model providers
-- save run outputs for later review
-- generate multiple thread variants
-- add lightweight tests
-- expand the portfolio story with screenshots and sample outputs
+The full plan lives in [docs/roadmap.md](docs/roadmap.md). The next major step
+is exposing the search tool as a callable function so the model decides when to
+search, instead of always being handed results.
 
 ## Build Audit
 

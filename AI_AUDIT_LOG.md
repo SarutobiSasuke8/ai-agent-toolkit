@@ -112,3 +112,39 @@ Notes:
 - Generated real sample outputs with the free local `ollama` path using `llama3.2:1b`.
 - Fixed a Windows console encoding issue in the example runner while producing samples.
 - Added a sample-output index page and linked it from the README.
+
+### Entry 005
+
+Date: 2026-08-04
+Tool: Claude Code
+Task: Add a third model provider for Nous Research Hermes models, and split
+planned work into a dedicated roadmap.
+Files:
+- tools/llm.py
+- agents/news_to_thread_agent.py
+- examples/run_agent.py
+- .env.example
+- README.md
+- docs/architecture.md
+- docs/portfolio-positioning.md
+- docs/roadmap.md
+- AI_AUDIT_LOG.md
+Notes:
+- Added a `nous` provider that talks to Nous Research over their
+  OpenAI-compatible API at `https://inference-api.nousresearch.com/v1`.
+- Implemented it as a generic OpenAI-compatible chat-completions path rather
+  than a Hermes-specific one, so `--base-url` or `NOUS_BASE_URL` reuses the same
+  code against any other compatible host. The OpenAI Responses API could not be
+  reused because it is specific to OpenAI.
+- Threaded an optional `base_url` through `LLMConfig`, `NewsToThreadAgent`, and
+  the example CLI.
+- Added readable error messages for 401 and 404 responses, matching the existing
+  Ollama error handling style.
+- Verified provider selection, key validation, base-URL precedence, and the
+  error-message paths locally. No live Nous API call was made, so the default
+  model ID `Hermes-4-70B` is unconfirmed. This is flagged in the README and
+  listed as the first roadmap item rather than hidden.
+- Created `docs/roadmap.md` and consolidated the "Next Up" and "Stronger Future
+  Versions" lists that were duplicated across the README and two docs.
+- Identified Hermes tool calling as the highest-value next change, since the
+  agent is currently a fixed pipeline rather than a real agent loop.

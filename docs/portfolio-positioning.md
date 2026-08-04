@@ -17,7 +17,7 @@ For a recruiter, client, or collaborator, this repo shows:
 
 - basic agent orchestration
 - prompt design with a defined voice
-- API integration and local-model support
+- provider-agnostic model integration, hosted and local
 - clean project structure
 - auditability of AI-assisted development
 
@@ -26,13 +26,11 @@ For a recruiter, client, or collaborator, this repo shows:
 - the search layer is explicit
 - the prompt layer is stored in files
 - the workflow can be run locally
+- swapping model providers does not change the agent code
 - the repository documents where AI tools were used
 
 ## Stronger Future Versions
 
-This can grow into:
-
-- a scheduled content pipeline
-- a multi-provider agent
-- a CLI tool with output modes
-- a small web app for thread generation
+See [roadmap.md](roadmap.md) for the current plan. The largest single upgrade is
+moving from a fixed pipeline to real tool calling, so the model decides when to
+search rather than always being handed search results.
