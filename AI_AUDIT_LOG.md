@@ -112,3 +112,23 @@ Notes:
 - Generated real sample outputs with the free local `ollama` path using `llama3.2:1b`.
 - Fixed a Windows console encoding issue in the example runner while producing samples.
 - Added a sample-output index page and linked it from the README.
+
+### Entry 005
+
+Date: 2026-10-15
+Tool: Claude Code
+Task: Add offline unit tests and a GitHub Actions CI workflow.
+Files:
+- pytest.ini
+- tests/conftest.py
+- tests/test_formatter.py
+- tests/test_search.py
+- tests/test_agent.py
+- .github/workflows/ci.yml
+- README.md
+- AI_AUDIT_LOG.md
+Notes:
+- Added 19 pytest tests covering the formatter, the search helpers and the agent workflow.
+- Search and LLM calls are stubbed, and a shared fixture removes `OPENAI_API_KEY` and blocks outbound sockets.
+- Added CI on Python 3.11 and 3.12 and a Testing section in the README.
+- No application code was changed.
