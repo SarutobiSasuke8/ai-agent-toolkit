@@ -44,6 +44,11 @@ ai-agent-toolkit/
 │   └── system_prompts.md
 ├── examples/
 │   └── run_agent.py
+├── tests/
+│   ├── conftest.py
+│   ├── test_agent.py
+│   ├── test_formatter.py
+│   └── test_search.py
 ├── .env.example
 └── requirements.txt
 ```
@@ -133,6 +138,21 @@ For a specific Ollama model:
 python examples/run_agent.py "AI agents in Web3" --provider ollama --model llama3.2:1b
 ```
 
+## Testing
+
+The test suite runs fully offline. It needs no API keys, no Ollama install and
+no network access: search and model calls are replaced with stubs, and a shared
+fixture blocks outbound sockets so a missed mock fails instead of calling a
+real service.
+
+```powershell
+pip install -r requirements.txt pytest
+pytest
+```
+
+CI runs the same suite on Python 3.11 and 3.12 for every pull request and every
+push to `main` (see [.github/workflows/ci.yml](.github/workflows/ci.yml)).
+
 ## Example Topics
 
 - `AI agents in Web3`
@@ -164,7 +184,6 @@ working end to end without API credits.
 - add support for multiple model providers
 - save run outputs for later review
 - generate multiple thread variants
-- add lightweight tests
 - expand the portfolio story with screenshots and sample outputs
 
 ## Build Audit
